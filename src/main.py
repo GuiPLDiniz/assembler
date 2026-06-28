@@ -1,37 +1,14 @@
-from pathlib import Path
+from symbol_table import SymbolTable
 
-from parser import Parser
-from code import Code
+table = SymbolTable()
 
+print(table.get_address("SP"))
+print(table.get_address("LCL"))
+print(table.get_address("R0"))
+print(table.get_address("R15"))
+print(table.get_address("SCREEN"))
+print(table.get_address("KBD"))
 
-input_file = Path("tests/test.asm")
-output_file = input_file.with_suffix(".hack")
-
-parser = Parser(input_file)
-
-with open(output_file, "w", encoding="utf-8") as output:
-
-    while parser.has_more_commands():
-
-        parser.advance()
-        command_type = parser.command_type()
-
-        if command_type == Parser.A_COMMAND:
-
-            symbol = parser.symbol()
-
-            if symbol.isdigit():
-
-                output.write(Code.a_instruction(symbol) + "\n")
-
-        elif command_type == Parser.C_COMMAND:
-
-            output.write(
-                Code.c_instruction(
-                    parser.dest(),
-                    parser.comp(),
-                    parser.jump()
-                ) + "\n"
-            )
-
-print("Arquivo gerado:", output_file)
+table.add_entry("LOOP", 10)
+print(table.contains("LOOP"))
+print(table.get_address("LOOP"))
