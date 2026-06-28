@@ -1,16 +1,7 @@
-from parser import Parser
+from code import decimal_to_binary
 
-parser = Parser("tests/test.asm")
-
-while parser.has_more_commands():
-
-    parser.advance()
-
-    print(
-        parser.command_type(),
-        parser.current_command,
-        parser.symbol() if parser.command_type() != "C_COMMAND" else "",
-        parser.dest(),
-        parser.comp(),
-        parser.jump()
-    )
+print(decimal_to_binary(0))
+print(decimal_to_binary(1))
+print(decimal_to_binary(2))
+print(decimal_to_binary(21))
+print(decimal_to_binary(123))
