@@ -1,11 +1,27 @@
+import sys
 from pathlib import Path
 
 from parser import Parser
 from code import Code
 from symbol_table import SymbolTable
 
+if len(sys.argv) != 2:
 
-input_file = Path("tests/test.asm")
+    print("Uso: python src/main.py arquivo.asm")
+    sys.exit(1)
+
+input_file = Path(sys.argv[1])
+
+if not input_file.exists():
+
+    print("Arquivo não encontrado.")
+    sys.exit(1)
+
+if input_file.suffix.lower() != ".asm":
+
+    print("O arquivo deve possuir extensão .asm")
+    sys.exit(1)
+
 output_file = input_file.with_suffix(".hack")
 
 symbol_table = SymbolTable()
