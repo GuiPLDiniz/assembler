@@ -1,7 +1,28 @@
-from code import decimal_to_binary
+from pathlib import Path
 
-print(decimal_to_binary(0))
-print(decimal_to_binary(1))
-print(decimal_to_binary(2))
-print(decimal_to_binary(21))
-print(decimal_to_binary(123))
+from parser import Parser
+from code import Code
+
+
+input_file = Path("tests/test.asm")
+output_file = input_file.with_suffix(".hack")
+
+parser = Parser(input_file)
+
+with open(output_file, "w") as output:
+
+    while parser.has_more_commands():
+
+        parser.advance()
+
+        if parser.command_type() == Parser.A_COMMAND:
+
+            symbol = parser.symbol()
+
+            if symbol.isdigit():
+
+                output.write(
+                    Code.a_instruction(symbol) + "\n"
+                )
+
+print("Arquivo gerado:", output_file)

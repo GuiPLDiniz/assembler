@@ -1,15 +1,3 @@
-// comentário
-
 @2
-D=A
-
-@3
-D=D+A
-
-@0
-M=D
-
-(LOOP)
-
-@LOOP
-0;JMP
+@15
+@100
